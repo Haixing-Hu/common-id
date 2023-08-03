@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~
+  ~    Copyright (c) 2017 - 2020.
+  ~    Nanjing Smart Medical Investment Operation Service Co. Ltd.
+  ~
+  ~    All rights reserved.
+  ~
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <!-- ID生成器的 EPOCH 设置为从 2018年12月1日00:00:00开始 -->
+  <bean id="epoch" class="java.time.Instant" factory-method="parse">
+    <constructor-arg>
+      <bean class="java.lang.String">
+        <constructor-arg value="2018-12-01T00:00:00.00Z"/>
+      </bean>
+    </constructor-arg>
+  </bean>
+
+  <bean id="id-generator" class="ltd.qubit.commons.id.AtomicIdGenerator">
+    <constructor-arg name="mode" value="SEQUENTIAL"/>
+    <constructor-arg name="precision" value="SECOND"/>
+    <constructor-arg name="host" value="${id-generator.host}"/>
+    <constructor-arg name="epoch" ref="epoch"/>
+  </bean>
+
+</beans>

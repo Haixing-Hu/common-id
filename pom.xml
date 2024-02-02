@@ -32,11 +32,13 @@
     <!-- Unit Test -->
     <dependency>
       <groupId>ltd.qubit</groupId>
-      <artifactId>common-test</artifactId>
+      <artifactId>common-unit-test</artifactId>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>ltd.qubit</groupId>
       <artifactId>common-random</artifactId>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 </project>

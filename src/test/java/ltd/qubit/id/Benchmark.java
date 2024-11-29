@@ -1,28 +1,29 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
-//    Copyright (c) 2022 - 2023.
+//    Copyright (c) 2022 - 2024.
 //    Haixing Hu, Qubit Co. Ltd.
 //
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package ltd.qubit.commons.id;
+package ltd.qubit.id;
 
 import java.util.HashSet;
 import java.util.concurrent.TimeUnit;
 
-import ltd.qubit.commons.math.LongBit;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static java.lang.System.currentTimeMillis;
+import ltd.qubit.commons.math.LongBit;
 
-import static ltd.qubit.commons.lang.ClassUtils.getShortClassName;
-import static ltd.qubit.commons.util.HumanReadable.formatDuration;
+import static java.lang.System.currentTimeMillis;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import static ltd.qubit.commons.lang.ClassUtils.getShortClassName;
+import static ltd.qubit.commons.util.HumanReadable.formatDuration;
+import static ltd.qubit.id.Timer.MILLIS_PER_SECOND;
 
 public class Benchmark {
 
@@ -90,7 +91,7 @@ public class Benchmark {
     final long end = currentTimeMillis();
     final String time = formatDuration(end - start, TimeUnit.MILLISECONDS);
     logger.info("Finished in {}. Average speed is {}/s.", time,
-        ((long) count * Timer.MILLIS_PER_SECOND / (end - start)));
+        ((long) count * MILLIS_PER_SECOND / (end - start)));
     assertNoDuplicated(generator, values);
   }
 
@@ -115,7 +116,7 @@ public class Benchmark {
     final long end = currentTimeMillis();
     final String time = formatDuration(end - start, TimeUnit.MILLISECONDS);
     logger.info("Finished in {}. Average speed is {}/s.", time,
-        ((long) totalIdCount * Timer.MILLIS_PER_SECOND / (end - start)));
+        ((long) totalIdCount * MILLIS_PER_SECOND / (end - start)));
     assertNoDuplicated(generator, threads);
   }
 }

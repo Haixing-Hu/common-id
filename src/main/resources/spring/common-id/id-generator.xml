@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ~
-  ~    Copyright (c) 2022 - 2023.
-  ~    Haixing Hu, Qubit Co. Ltd.
+  ~    Copyright (c) 2017 - 2020.
+  ~    Nanjing Smart Medical Investment Operation Service Co. Ltd.
   ~
   ~    All rights reserved.
   ~
@@ -22,7 +22,7 @@
     </constructor-arg>
   </bean>
 
-  <bean id="id-generator" class="ltd.qubit.commons.id.AtomicIdGenerator">
+  <bean id="id-generator" class="ltd.qubit.id.AtomicIdGenerator">
     <constructor-arg name="mode" value="SEQUENTIAL"/>
     <constructor-arg name="precision" value="SECOND"/>
     <constructor-arg name="host" value="${id-generator.host}"/>

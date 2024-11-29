@@ -1,19 +1,19 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
-//    Copyright (c) 2022 - 2023.
+//    Copyright (c) 2022 - 2024.
 //    Haixing Hu, Qubit Co. Ltd.
 //
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package ltd.qubit.commons.id;
+package ltd.qubit.id;
 
-import static ltd.qubit.commons.id.Constant.SEQUENCE_BITS_IN_MILLISECOND;
-import static ltd.qubit.commons.id.Constant.SEQUENCE_BITS_IN_SECOND;
-import static ltd.qubit.commons.id.Constant.TIMESTAMP_BITS_IN_MILLISECOND;
-import static ltd.qubit.commons.id.Constant.TIMESTAMP_BITS_IN_SECOND;
-import static ltd.qubit.commons.id.Constant.WAIT_DURATION_IN_MILLISECOND;
-import static ltd.qubit.commons.id.Constant.WAIT_DURATION_IN_SECOND;
+import static ltd.qubit.id.Constant.SEQUENCE_BITS_IN_MILLISECOND;
+import static ltd.qubit.id.Constant.SEQUENCE_BITS_IN_SECOND;
+import static ltd.qubit.id.Constant.TIMESTAMP_BITS_IN_MILLISECOND;
+import static ltd.qubit.id.Constant.TIMESTAMP_BITS_IN_SECOND;
+import static ltd.qubit.id.Constant.WAIT_DURATION_IN_MILLISECOND;
+import static ltd.qubit.id.Constant.WAIT_DURATION_IN_SECOND;
 
 /**
  * 此枚举表示时间戳精度。

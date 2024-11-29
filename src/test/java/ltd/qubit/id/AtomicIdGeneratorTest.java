@@ -1,27 +1,32 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
-//    Copyright (c) 2022 - 2023.
+//    Copyright (c) 2022 - 2024.
 //    Haixing Hu, Qubit Co. Ltd.
 //
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package ltd.qubit.commons.id;
+package ltd.qubit.id;
 
 import java.time.Instant;
 
-import ltd.qubit.commons.random.RandomBeanGenerator;
-
 import org.junit.jupiter.api.Test;
+
+import ltd.qubit.commons.random.RandomBeanGenerator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import static ltd.qubit.id.Mode.SEQUENTIAL;
+import static ltd.qubit.id.Mode.SPREAD;
+import static ltd.qubit.id.Precision.MILLISECOND;
+import static ltd.qubit.id.Precision.SECOND;
+
 /**
- * Unit test of the {@link LockedIdGenerator} class.
+ * Unit test of the {@link AtomicIdGenerator} class.
  *
  * @author Haixing Hu
  */
-public class LockedIdGeneratorTest extends Benchmark implements Constant {
+public class AtomicIdGeneratorTest extends Benchmark implements Constant {
 
   private static final int TEST_COUNT = 100;
 
@@ -34,12 +39,18 @@ public class LockedIdGeneratorTest extends Benchmark implements Constant {
       final long host = random.nextLong(HOST_MIN, HOST_MAX);
       final long epochMilli = random.nextLong();
       final Instant epoch = Instant.ofEpochMilli(epochMilli);
-      final LockedIdGenerator generator = new LockedIdGenerator(mode, precision, host, epoch);
+      final AtomicIdGenerator generator = new AtomicIdGenerator(mode, precision,
+          host, epoch);
       assertEquals(mode, generator.getMode());
       assertEquals(precision, generator.getPrecision());
       assertEquals(host, generator.getHost());
       assertEquals(epoch, generator.getEpoch());
     }
+  }
+
+  @Test
+  public void testGenerate() {
+    // TODO
   }
 
   @Test
@@ -50,8 +61,8 @@ public class LockedIdGeneratorTest extends Benchmark implements Constant {
       final Precision precision = random.nextObject(Precision.class);
       final long host = random.nextLong(HOST_MIN, HOST_MAX);
       final Instant epoch = Instant.now();
-      final LockedIdGenerator generator = new LockedIdGenerator(mode, precision, host, epoch);
-      final IdBuilder builder = generator.getBuilder();
+      final AtomicIdGenerator generator = new AtomicIdGenerator(mode, precision, host, epoch);
+      final Builder builder = generator.getBuilder();
       final Timer timer = generator.getTimer();
       final long timestamp = random.nextLong(0, builder.getMaxTimestamp() + 1);
       final Instant instant = timer.getInstant(timestamp);
@@ -67,50 +78,49 @@ public class LockedIdGeneratorTest extends Benchmark implements Constant {
 
   @Test
   public void singleThreadBenchmark_1() {
-    final LockedIdGenerator generator = new LockedIdGenerator(Mode.SEQUENTIAL, Precision.SECOND);
+    final AtomicIdGenerator generator = new AtomicIdGenerator(SEQUENTIAL, SECOND);
     singleThreadBenchmarkImpl(TOTAL_ID_COUNT, generator);
   }
 
   @Test
   public void singleThreadBenchmark_2() {
-    final LockedIdGenerator generator = new LockedIdGenerator(Mode.SPREAD,
-        Precision.SECOND);
+    final AtomicIdGenerator generator = new AtomicIdGenerator(SPREAD, SECOND);
     singleThreadBenchmarkImpl(TOTAL_ID_COUNT, generator);
   }
 
   @Test
   public void singleThreadBenchmark_3() {
-    final LockedIdGenerator generator = new LockedIdGenerator(Mode.SEQUENTIAL, Precision.MILLISECOND);
+    final AtomicIdGenerator generator = new AtomicIdGenerator(SEQUENTIAL, MILLISECOND);
     singleThreadBenchmarkImpl(TOTAL_ID_COUNT, generator);
   }
 
   @Test
   public void singleThreadBenchmark_4() {
-    final LockedIdGenerator generator = new LockedIdGenerator(Mode.SPREAD, Precision.MILLISECOND);
+    final AtomicIdGenerator generator = new AtomicIdGenerator(SPREAD, MILLISECOND);
     singleThreadBenchmarkImpl(TOTAL_ID_COUNT, generator);
   }
 
   @Test
   public void multitheadBenchmark_1() throws Exception {
-    final LockedIdGenerator generator = new LockedIdGenerator(Mode.SEQUENTIAL, Precision.SECOND);
+    final AtomicIdGenerator generator = new AtomicIdGenerator(SEQUENTIAL, SECOND);
     multiThreadBenchmarkImpl(TOTAL_ID_COUNT, TOTAL_THREAD_COUNT, generator);
   }
 
   @Test
-  public void multitheadBenchmark_2() throws Exception  {
-    final LockedIdGenerator generator = new LockedIdGenerator(Mode.SPREAD, Precision.SECOND);
+  public void multitheadBenchmark_2() throws Exception {
+    final AtomicIdGenerator generator = new AtomicIdGenerator(SPREAD, SECOND);
     multiThreadBenchmarkImpl(TOTAL_ID_COUNT, TOTAL_THREAD_COUNT, generator);
   }
 
   @Test
-  public void multitheadBenchmark_3() throws Exception  {
-    final LockedIdGenerator generator = new LockedIdGenerator(Mode.SEQUENTIAL, Precision.MILLISECOND);
+  public void multitheadBenchmark_3() throws Exception {
+    final AtomicIdGenerator generator = new AtomicIdGenerator(SEQUENTIAL, MILLISECOND);
     multiThreadBenchmarkImpl(TOTAL_ID_COUNT, TOTAL_THREAD_COUNT, generator);
   }
 
   @Test
-  public void multitheadBenchmark_4() throws Exception  {
-    final LockedIdGenerator generator = new LockedIdGenerator(Mode.SPREAD, Precision.MILLISECOND);
+  public void multitheadBenchmark_4() throws Exception {
+    final AtomicIdGenerator generator = new AtomicIdGenerator(SPREAD, MILLISECOND);
     multiThreadBenchmarkImpl(TOTAL_ID_COUNT, TOTAL_THREAD_COUNT, generator);
   }
 }

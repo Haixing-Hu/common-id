@@ -1,12 +1,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
-//    Copyright (c) 2022 - 2023.
+//    Copyright (c) 2022 - 2024.
 //    Haixing Hu, Qubit Co. Ltd.
 //
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package ltd.qubit.commons.id;
+package ltd.qubit.id;
 
 import java.time.Instant;
 
@@ -34,7 +34,7 @@ public abstract class AbstractIdGenerator implements IdGenerator {
   /**
    * ID构造器。
    */
-  protected final IdBuilder builder;
+  protected final Builder builder;
 
   /**
    * 构造一个ID生成器。
@@ -51,7 +51,7 @@ public abstract class AbstractIdGenerator implements IdGenerator {
   public AbstractIdGenerator(final Mode mode, final Precision precision,
       final long host, final Instant epoch) {
     this.timer = new Timer(precision, epoch);
-    this.builder = new IdBuilder(mode, precision, host);
+    this.builder = new Builder(mode, precision, host);
   }
 
   public final Mode getMode() {
@@ -74,7 +74,7 @@ public abstract class AbstractIdGenerator implements IdGenerator {
     return timer;
   }
 
-  public final IdBuilder getBuilder() {
+  public final Builder getBuilder() {
     return builder;
   }
 
